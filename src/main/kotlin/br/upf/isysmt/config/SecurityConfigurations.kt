@@ -27,10 +27,9 @@ class SecurityConfigurations(val securityFilter: SecurityFilter) {
                 it.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             }
             .authorizeHttpRequests {
-                it.requestMatchers(HttpMethod.POST, "/eventos", "/orcamentos", "/pecas", "/materiais").permitAll()
-                    .requestMatchers(HttpMethod.GET, "/eventos", "/eventos/*",
-                        "/orcamentos", "/orcamentos/*", "/pecas", "/pecas/*", "/materiais", "/materiais/*").permitAll()
-                    .requestMatchers("/eventos/*").hasRole("ADMIN")
+                it.requestMatchers(HttpMethod.POST, "/orcamentos", "/pecas", "/materiais").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/orcamentos", "/orcamentos/*", "/pecas", "/pecas/*", "/materiais", "/materiais/*").permitAll()
+                    .requestMatchers("/orcamentos/*").hasRole("ADMIN")
                     .requestMatchers("/auth/*").permitAll()
                     .requestMatchers("/usuarios/*").hasRole("ADMIN")
                     .anyRequest().authenticated()
