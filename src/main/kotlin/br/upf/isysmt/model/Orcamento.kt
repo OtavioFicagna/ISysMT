@@ -7,10 +7,11 @@ data class Orcamento(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
     val tempoFabricacao: Double,
-    //@ManyToOne
-    //val peca: Peca,
-    //@Enumerated(value = EnumType.STRING)
-    //val status: StatusOrcamento,
-    //@OneToMany(mappedBy = "orcamento")
-    //val materiais: List<Material> = listOf(),
+    val precoTotal: Double,
+    @ManyToOne
+    val peca: Peca,
+    @ManyToOne
+    val material: Material,
+    @Enumerated(value = EnumType.STRING)
+    val status: StatusOrcamento,
 )

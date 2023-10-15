@@ -3,7 +3,7 @@ package br.upf.isysmt.model
 import jakarta.persistence.*
 import java.time.LocalDateTime
 
-//@Entity
+@Entity
 data class Peca (
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
