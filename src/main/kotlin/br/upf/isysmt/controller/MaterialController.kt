@@ -1,9 +1,9 @@
 package br.upf.isysmt.controller
 
-import br.upf.isysmt.dtos.OrcamentoDTO
-import br.upf.isysmt.dtos.OrcamentoResponseDTO
-import br.upf.isysmt.model.Orcamento
-import br.upf.isysmt.service.OrcamentoService
+import br.upf.isysmt.dtos.MaterialDTO
+import br.upf.isysmt.dtos.MaterialResponseDTO
+import br.upf.isysmt.model.Material
+import br.upf.isysmt.service.MaterialService
 import jakarta.transaction.Transactional
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
@@ -12,34 +12,33 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.util.UriComponentsBuilder
 
 @RestController
-@RequestMapping("/orcamentos")
-class OrcamentoController(val service: OrcamentoService) {
-
+@RequestMapping("/materiais")
+class MaterialController(val service: MaterialService) {
     @GetMapping
-    fun listar(): List<Orcamento>{
+    fun listar(): List<Material>{
         return service.listAll()
     }
     @GetMapping("/{id}")
-    fun buscarPorId(@PathVariable id: Long): OrcamentoResponseDTO {
+    fun buscarPorId(@PathVariable id: Long): MaterialResponseDTO {
         return service.idSearch(id)
     }
 
     @PostMapping
     @Transactional
-    fun cadastra(@RequestBody @Valid dto: OrcamentoDTO,
+    fun cadastra(@RequestBody @Valid dto: MaterialDTO,
                  uriBuilder: UriComponentsBuilder
-    ): ResponseEntity<OrcamentoResponseDTO> {
-        val orcamentoResponse = service.register(dto)
-        val created = uriBuilder.path("/orcamentos/${orcamentoResponse.id}")
+    ): ResponseEntity<MaterialResponseDTO> {
+        val materialResponse= service.register(dto)
+        val created = uriBuilder.path("/materials/${materialResponse.id}")
             .build().toUri()
-        return ResponseEntity.created(created).body(orcamentoResponse)
+        return ResponseEntity.created(created).body(materialResponse)
     }
 
     @PutMapping("/{id}")
     @Transactional
     fun update(@PathVariable id: Long,
-                  @RequestBody @Valid dto: OrcamentoDTO
-    ): OrcamentoResponseDTO {
+               @RequestBody @Valid dto: MaterialDTO
+    ): MaterialResponseDTO {
         return service.update(id, dto)
     }
 

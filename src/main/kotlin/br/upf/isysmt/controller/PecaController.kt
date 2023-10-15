@@ -1,9 +1,9 @@
 package br.upf.isysmt.controller
 
-import br.upf.isysmt.dtos.OrcamentoDTO
-import br.upf.isysmt.dtos.OrcamentoResponseDTO
-import br.upf.isysmt.model.Orcamento
-import br.upf.isysmt.service.OrcamentoService
+import br.upf.isysmt.dtos.PecaDTO
+import br.upf.isysmt.dtos.PecaResponseDTO
+import br.upf.isysmt.model.Peca
+import br.upf.isysmt.service.PecaService
 import jakarta.transaction.Transactional
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
@@ -12,34 +12,33 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.util.UriComponentsBuilder
 
 @RestController
-@RequestMapping("/orcamentos")
-class OrcamentoController(val service: OrcamentoService) {
-
+@RequestMapping("/pecas")
+class PecaController(val service: PecaService) {
     @GetMapping
-    fun listar(): List<Orcamento>{
+    fun listar(): List<Peca>{
         return service.listAll()
     }
     @GetMapping("/{id}")
-    fun buscarPorId(@PathVariable id: Long): OrcamentoResponseDTO {
+    fun buscarPorId(@PathVariable id: Long): PecaResponseDTO {
         return service.idSearch(id)
     }
 
     @PostMapping
     @Transactional
-    fun cadastra(@RequestBody @Valid dto: OrcamentoDTO,
+    fun cadastra(@RequestBody @Valid dto: PecaDTO,
                  uriBuilder: UriComponentsBuilder
-    ): ResponseEntity<OrcamentoResponseDTO> {
-        val orcamentoResponse = service.register(dto)
-        val created = uriBuilder.path("/orcamentos/${orcamentoResponse.id}")
+    ): ResponseEntity<PecaResponseDTO> {
+        val pecaResponse = service.register(dto)
+        val created = uriBuilder.path("/pecas/${pecaResponse.id}")
             .build().toUri()
-        return ResponseEntity.created(created).body(orcamentoResponse)
+        return ResponseEntity.created(created).body(pecaResponse)
     }
 
     @PutMapping("/{id}")
     @Transactional
     fun update(@PathVariable id: Long,
-                  @RequestBody @Valid dto: OrcamentoDTO
-    ): OrcamentoResponseDTO {
+               @RequestBody @Valid dto: PecaDTO
+    ): PecaResponseDTO {
         return service.update(id, dto)
     }
 
