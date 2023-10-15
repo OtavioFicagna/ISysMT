@@ -1,5 +1,6 @@
 package br.upf.isysmt.model
 
+import com.fasterxml.jackson.annotation.JsonManagedReference
 import jakarta.persistence.*
 import java.time.LocalDateTime
 
@@ -15,5 +16,6 @@ data class Peca (
     @Enumerated(value = EnumType.STRING)
     val status: StatusPeca,
     @OneToMany(mappedBy = "peca")
+    @JsonManagedReference
     val orcamentos: List<Orcamento> = listOf()
 )

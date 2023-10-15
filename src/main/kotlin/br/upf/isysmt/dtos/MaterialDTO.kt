@@ -6,10 +6,10 @@ import java.time.LocalDateTime
 
 data class MaterialDTO(
     @field:NotBlank(message = "Deve ser informado o codigo do material")
-    val codigo: String,
+    val codigo: String?,
     val preco: Double,
     @field:NotBlank(message = "Deve ser informado a descrição do material")
-    val descricao: String,
+    val descricao: String?,
     val diametro: Double,
     val dataCadastro: LocalDateTime,
     val status: StatusMaterial,

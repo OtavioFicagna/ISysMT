@@ -4,15 +4,21 @@ import br.upf.isysmt.converters.OrcamentoConverter
 import br.upf.isysmt.dtos.OrcamentoDTO
 import br.upf.isysmt.dtos.OrcamentoResponseDTO
 import br.upf.isysmt.exceptions.NotFoundException
-import br.upf.isysmt.model.Orcamento
 import br.upf.isysmt.repository.OrcamentoRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
 private const val ORCAMENTO_NOT_FOUND_MESSAGE = "ORÇAMENTO NÃO ENCONTRADO!"
 @Service
 class OrcamentoService(val repository: OrcamentoRepository, val converter: OrcamentoConverter) {
-    fun listAll(): List<Orcamento> {
-        return repository.findAll()
+    fun listAll(id: Long?, paginacao: Pageable): Page<OrcamentoResponseDTO>{
+        val orcamentos = if (id == null) {
+            repository.findAll(paginacao)
+        } else {
+            repository.findById(id, paginacao)
+        }
+        return orcamentos.map(converter::toOrcamentoResponseDTO)
     }
 
     fun idSearch(id: Long): OrcamentoResponseDTO {

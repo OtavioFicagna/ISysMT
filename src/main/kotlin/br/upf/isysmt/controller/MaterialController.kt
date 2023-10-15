@@ -2,10 +2,11 @@ package br.upf.isysmt.controller
 
 import br.upf.isysmt.dtos.MaterialDTO
 import br.upf.isysmt.dtos.MaterialResponseDTO
-import br.upf.isysmt.model.Material
 import br.upf.isysmt.service.MaterialService
 import jakarta.transaction.Transactional
 import jakarta.validation.Valid
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -15,8 +16,8 @@ import org.springframework.web.util.UriComponentsBuilder
 @RequestMapping("/materiais")
 class MaterialController(val service: MaterialService) {
     @GetMapping
-    fun listar(): List<Material>{
-        return service.listAll()
+    fun listar(@RequestParam(required = false) id: Long?, paginacao: Pageable): Page<MaterialResponseDTO> {
+        return service.listAll(id, paginacao)
     }
     @GetMapping("/{id}")
     fun buscarPorId(@PathVariable id: Long): MaterialResponseDTO {

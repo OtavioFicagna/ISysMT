@@ -7,8 +7,8 @@ import java.time.LocalDateTime
 data class Material (
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
-    val codigo: String,
-    val descricao: String,
+    val codigo: String?,
+    val descricao: String?,
     val preco: Double,
     val diametro: Double,
     val dataCadastro: LocalDateTime,

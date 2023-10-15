@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface OrcamentoRepository: JpaRepository<Orcamento, Long> {
-    fun findById(nomeOrcamento: Orcamento, paginacao: Pageable): Page<Orcamento>
+    fun findById(id: Long, paginacao: Pageable): Page<Orcamento>
 }

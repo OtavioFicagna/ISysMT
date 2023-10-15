@@ -6,6 +6,8 @@ import br.upf.isysmt.model.Orcamento
 import br.upf.isysmt.service.OrcamentoService
 import jakarta.transaction.Transactional
 import jakarta.validation.Valid
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -14,10 +16,9 @@ import org.springframework.web.util.UriComponentsBuilder
 @RestController
 @RequestMapping("/orcamentos")
 class OrcamentoController(val service: OrcamentoService) {
-
     @GetMapping
-    fun listar(): List<Orcamento>{
-        return service.listAll()
+    fun listar(@RequestParam(required = false) id: Long?, paginacao: Pageable): Page<OrcamentoResponseDTO> {
+        return service.listAll(id, paginacao)
     }
     @GetMapping("/{id}")
     fun buscarPorId(@PathVariable id: Long): OrcamentoResponseDTO {

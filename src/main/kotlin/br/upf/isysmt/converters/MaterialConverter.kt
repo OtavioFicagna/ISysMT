@@ -20,6 +20,7 @@ class MaterialConverter {
 
     fun toMaterialResponseDTO(Material: Material): MaterialResponseDTO {
         return MaterialResponseDTO(
+            id = Material.id,
             codigo = Material.codigo,
             descricao = Material.descricao,
             status = Material.status,

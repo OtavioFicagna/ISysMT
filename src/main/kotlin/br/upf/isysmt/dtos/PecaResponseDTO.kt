@@ -5,7 +5,7 @@ import br.upf.isysmt.model.StatusPeca
 import java.time.LocalDateTime
 
 data class PecaResponseDTO(
-    val id: Long? = null,
+    val id: Long?,
     val codigo: String,
     val preco: Double,
     val diametro: Double,

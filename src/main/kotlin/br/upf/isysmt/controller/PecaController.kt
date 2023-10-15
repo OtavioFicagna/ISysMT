@@ -2,10 +2,11 @@ package br.upf.isysmt.controller
 
 import br.upf.isysmt.dtos.PecaDTO
 import br.upf.isysmt.dtos.PecaResponseDTO
-import br.upf.isysmt.model.Peca
 import br.upf.isysmt.service.PecaService
 import jakarta.transaction.Transactional
 import jakarta.validation.Valid
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -15,8 +16,8 @@ import org.springframework.web.util.UriComponentsBuilder
 @RequestMapping("/pecas")
 class PecaController(val service: PecaService) {
     @GetMapping
-    fun listar(): List<Peca>{
-        return service.listAll()
+    fun listar(@RequestParam(required = false) id: Long?, paginacao: Pageable): Page<PecaResponseDTO> {
+        return service.listAll(id, paginacao)
     }
     @GetMapping("/{id}")
     fun buscarPorId(@PathVariable id: Long): PecaResponseDTO {

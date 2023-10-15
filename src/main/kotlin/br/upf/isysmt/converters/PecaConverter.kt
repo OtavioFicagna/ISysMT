@@ -21,6 +21,7 @@ class PecaConverter {
 
     fun toPecaResponseDTO(Peca: Peca): PecaResponseDTO {
         return PecaResponseDTO(
+            id = Peca.id,
             codigo = Peca.codigo,
             status = Peca.status,
             preco = Peca.preco,
